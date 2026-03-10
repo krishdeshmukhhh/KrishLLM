@@ -18,22 +18,32 @@ Data flow overview:
 
 ## Building from Source
 
+First, ensure you clone the repository with its submodules, as we rely on the official `llama.cpp` C API:
+
+```bash
+git clone --recurse-submodules https://github.com/krishdeshmukhhh/KrishLLM.git
+cd KrishLLM
+```
+
+Then, compile the project using CMake:
+
 ```bash
 mkdir build
 cd build
 cmake ..
-make
+cmake --build . --config Release
 ```
-Alternatively, just use `make` in the root directory.
 
 ## Usage
 
+You must provide a path to a downloaded `.gguf` weight file (e.g., download a Phi-3-mini GGUF from HuggingFace).
+
 ```bash
-./KrishLLM --model phi-3-mini --prompt "Write C++ Arduino firmware for water pump control:"
+./build/Release/KrishLLM --model /path/to/phi-3-mini-4k-instruct-q4.gguf --prompt "Write C++ Arduino firmware for water pump control:"
 ```
 
 Options:
-- `--model MODEL` (e.g., phi-3-mini)
+- `--model MODEL` (Required: absolute path to a `.gguf` file)
 - `--prompt PROMPT` (Text to generate context from)
 - `--temp TEMP` (Default 0.8)
 - `--topk TOPK` (Default 40)
